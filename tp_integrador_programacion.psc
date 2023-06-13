@@ -1,8 +1,11 @@
 Algoritmo sin_titulo
 
-	Definir op,llamador Como Entero
+	Definir op,llamador,dia,turno Como Entero
 	Definir array_agenda Como CARACTER
-	Dimension array_agenda[5,8]
+	dia <- 5
+	turno <- 8
+	
+	Dimension array_agenda[dia,turno]
 	
 	//LUNES
 	array_agenda[0,0] = "8"
@@ -50,7 +53,7 @@ Algoritmo sin_titulo
 	array_agenda[4,6] = "11"
 	array_agenda[4,7] = "11:30"
 	
-	//PERUANOOOOOO
+	//Menu mostrado al iniciar el programa
 	Escribir "bienvenido, seleccione una de las opciones:"
 	Escribir "[1] para reservar un turno"
 	Escribir "[2] para buscar un paciente"
@@ -76,12 +79,21 @@ Algoritmo sin_titulo
 	
 FinAlgoritmo 
 
-Funcion return_de_op1 = op1 (agenda_fun_1)
-	Definir i,j,dia,turno Como Entero
-	definir array_guardar_turno Como Caracter
-	Dimension array_guardar_turno[1,1]
-	
-	para i = 0 Hasta 4 Hacer
+Funcion return_de_op1 = op1(agenda_fun_1)
+	Definir i,j,dias,turno,diaReserva,turnoReserva Como Entero
+	definir array_reservar_turno,aux Como Caracter
+	dias <- 5
+	turno <- 8
+	Dimension array_reservar_turno[dias,turno]
+	//Inicializo el array de los turnos disponibles con un mensaje porque al iniciar el programa no hay ningun turno dado,
+	//A medida que se van dando los turnos se van reemplazando los elementos de los arrays de turnos dados y  turnos disponibles.
+	para i<- 0 hasta dias-1 Hacer
+		para j<-0 hasta turno-1 Hacer
+			array_reservar_turno[i,j] <- "Disponible"
+		FinPara
+	FinPara
+	//Muestra el array de los turnos disponibles
+	para i = 0 Hasta dias-1 Hacer
 		Escribir "los turnos disponibles del dia " i+1 " son:"
 		para j = 0 Hasta 7 Hacer
 			Escribir Sin Saltar j+1,":"
@@ -89,10 +101,29 @@ Funcion return_de_op1 = op1 (agenda_fun_1)
 		FinPara
 	FinPara
 	
-	Escribir "ingrese el dia y turno que desea reservar"
-	leer dia,turno 
-	array_guardar_turno[dia,turno] = "0"
-	Escribir "usted selelecciono el turno" turno " del dia " dia 
+	//Le pido al usuario el dia y el turno que desea reservar
+	Escribir "ingrese el dia y turno que desea reservar: "
+	leer diaReserva,turnoReserva
+	//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno"  y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
+	aux <- agenda_fun_1[diaReserva-1,turnoReserva-1]
+	agenda_fun_1[diaReserva-1,turnoReserva-1] = "Turno no disponible"
+	array_reservar_turno[diaReserva-1,turnoReserva-1] = "Turno ya dado"
+	Escribir "usted selecciono el turno " turnoReserva " del dia " diaReserva
+	
+	
+	//PRUEBASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+	para i<- 0 hasta dias-1 Hacer
+		Escribir "los turnos del dia " i+1 " son:"
+		para j<- 0 hasta turno-1 Hacer
+			Escribir agenda_fun_1[i,j]
+		FinPara
+	FinPara
+	para i<- 0 hasta dias-1 Hacer
+		Escribir "los turnos disponibles del dia " i+1 " son:"
+		para j<- 0 hasta turno-1 Hacer
+			Escribir array_reservar_turno[i,j] 
+		FinPara
+	FinPara
 	
 Fin Funcion
 
@@ -107,28 +138,3 @@ FinFuncion
 
 Funcion return_de_op5 = op5 (agenda_fun_5)
 FinFuncion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
