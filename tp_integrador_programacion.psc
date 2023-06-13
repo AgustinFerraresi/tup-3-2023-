@@ -1,53 +1,53 @@
 Algoritmo sin_titulo
 
 	Definir op,llamador Como Entero
-	Definir array_agenda Como real
+	Definir array_agenda Como CARACTER
 	Dimension array_agenda[5,8]
-	
-	array_agenda[0,0] = 8
-	array_agenda[0,1] = 8.5
-	array_agenda[0,2] = 9
-	array_agenda[0,3] = 9.5
-	array_agenda[0,4] = 10
-	array_agenda[0,5] = 10.5
-	array_agenda[0,6] = 11
-	array_agenda[0,7] = 11.5
-	
-	array_agenda[1,0] = 8
-	array_agenda[1,1] = 8.5
-	array_agenda[1,2] = 9 
-	array_agenda[1,3] = 9.5
-	array_agenda[1,4] = 10
-	array_agenda[1,5] = 10.5
-	array_agenda[1,6] = 11
-	array_agenda[1,7] = 11.5
-	
-	array_agenda[2,0] = 8
-	array_agenda[2,1] = 8.5
-	array_agenda[2,2] = 9
-	array_agenda[2,3] = 9.5
-	array_agenda[2,4] = 10
-	array_agenda[2,5] = 10.5
-	array_agenda[2,6] = 11
-	array_agenda[2,7] = 11.5
-	
-	array_agenda[3,0] = 8
-	array_agenda[3,1] = 8.5
-	array_agenda[3,2] = 9 
-	array_agenda[3,3] = 9.5 
-	array_agenda[3,4] = 10
-	array_agenda[3,5] = 10.5
-	array_agenda[3,6] = 11
-	array_agenda[3,7] = 11.5
-	
-	array_agenda[4,0] = 8
-	array_agenda[4,1] = 8.5
-	array_agenda[4,2] = 9
-	array_agenda[4,3] = 9.5
-	array_agenda[4,4] = 10
-	array_agenda[4,5] = 10.5
-	array_agenda[4,6] = 11
-	array_agenda[4,7] = 11.5
+	//LUNES
+	array_agenda[0,0] = "8"
+	array_agenda[0,1] = "8:30"
+	array_agenda[0,2] = "9"
+	array_agenda[0,3] = "9:30"
+	array_agenda[0,4] = "10"
+	array_agenda[0,5] = "10:30"
+	array_agenda[0,6] = "11"
+	array_agenda[0,7] = "11:30"
+	//MARTES
+	array_agenda[1,0] = "8"
+	array_agenda[1,1] = "8:30"
+	array_agenda[1,2] = "9 "
+	array_agenda[1,3] = "9:30"
+	array_agenda[1,4] = "10"
+	array_agenda[1,5] = "10:30"
+	array_agenda[1,6] = "11"
+	array_agenda[1,7] = "11:30"
+	//MIERCOLES
+	array_agenda[2,0] = "8"
+	array_agenda[2,1] = "8:30"
+	array_agenda[2,2] = "9"
+	array_agenda[2,3] = "9:30"
+	array_agenda[2,4] = "10"
+	array_agenda[2,5] = "10:30"
+	array_agenda[2,6] = "11"
+	array_agenda[2,7] = "11:30"
+	//JUEVES
+	array_agenda[3,0] = "8"
+	array_agenda[3,1] = "8:30"
+	array_agenda[3,2] = "9 "
+	array_agenda[3,3] = "9:30" 
+	array_agenda[3,4] = "10"
+	array_agenda[3,5] = "10:30"
+	array_agenda[3,6] = "11"
+	array_agenda[3,7] = "11:30"
+	//VIERNES
+	array_agenda[4,0] = "8"
+	array_agenda[4,1] = "8:30"
+	array_agenda[4,2] = "9"
+	array_agenda[4,3] = "9:30"
+	array_agenda[4,4] = "10"
+	array_agenda[4,5] = "10:30"
+	array_agenda[4,6] = "11"
+	array_agenda[4,7] = "11:30"
 	
 	
 	Escribir "bienvenido, seleccione una de las opciones"
