@@ -57,27 +57,73 @@ Algoritmo sin_titulo
 	Segun op Hacer
 		1:
 			llamador=op1(array_agenda)
+		2:
+			llamador=op2(array_agenda)
+		3:
+			llamador=op3(array_agenda)
+		4:
+			llamador=op4(array_agenda)
+		5:
+			llamador=op5(array_agenda)
+			
 		De Otro Modo:
 			Escribir "ingresó una opcion no valida"
 	Fin Segun
 	
 FinAlgoritmo 
 
-Funcion return_de_op1 = op1 (agenda)
-	Definir i, j,array_guardar_turno,dia,turno Como Entero
+Funcion return_de_op1 = op1 (agenda_fun_1)
+	Definir i,j,array_guardar_turno,dia,turno Como Entero
 	Dimension array_guardar_turno[1,1]
 	
 	para i = 0 Hasta 4 Hacer
 		Escribir "los turnos disponibles del dia " i+1 " son:"
 		para j = 0 Hasta 7 Hacer
 			Escribir Sin Saltar j+1,":"
-			Escribir agenda[i,j]
+			Escribir agenda_fun_1[i,j]
 		FinPara
 	FinPara
 	
 	Escribir "ingrese el dia y turno que desea reservar"
 	leer dia,turno 
 	array_guardar_turno[dia,turno] = 0
-	Escribir "usted sele
+	Escribir "usted selelecciono el turno" turno " del dia " dia 
 	
 Fin Funcion
+
+Funcion return_de_op2 = op2 (agenda_fun_2)
+FinFuncion
+
+Funcion return_de_op3 = op3 (agenda_fun_3)
+FinFuncion
+
+Funcion return_de_op4 = op4 (agenda_fun_4)
+FinFuncion
+
+Funcion return_de_op5 = op5 (agenda_fun_5)
+FinFuncion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
