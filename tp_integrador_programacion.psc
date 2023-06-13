@@ -50,7 +50,7 @@ Algoritmo sin_titulo
 	array_agenda[4,6] = "11"
 	array_agenda[4,7] = "11:30"
 	
-	//HOOOOLAAAAAAA
+	//PERUANOOOOOO
 	Escribir "bienvenido, seleccione una de las opciones:"
 	Escribir "[1] para reservar un turno"
 	Escribir "[2] para buscar un paciente"
