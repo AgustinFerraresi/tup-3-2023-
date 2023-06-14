@@ -19,7 +19,7 @@ Algoritmo sin_titulo
 	//MARTES
 	array_agenda[1,0] = "8"
 	array_agenda[1,1] = "8:30"
-	array_agenda[1,2] = "9 "
+	array_agenda[1,2] = "9"
 	array_agenda[1,3] = "9:30"
 	array_agenda[1,4] = "10"
 	array_agenda[1,5] = "10:30"
@@ -59,6 +59,7 @@ Algoritmo sin_titulo
 	Escribir "[2] para buscar un paciente"
 	Escribir "[3] para ver agenda del vacunatorio"
 	Escribir "[4] para mostrar la lista de pacientes ordenada"
+	Escribir "[5] para mostrar listado/s"
 	
 	Repetir
 		
@@ -78,12 +79,11 @@ Algoritmo sin_titulo
 		De Otro Modo:
 			Escribir "ingresó una opcion no valida, intente nuevamente"
 	Fin Segun
-Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
+	Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
 FinAlgoritmo 
-
 Funcion return_de_op1 = op1(agenda_fun_1)
 	Definir i,j,dias,turno,diaReserva,turnoReserva Como Entero
-	definir array_reservar_turno,aux Como Caracter
+	definir array_reservar_turno,aux,verTurnos Como Caracter
 	dias <- 5
 	turno <- 8
 	Dimension array_reservar_turno[dias,turno]
@@ -102,30 +102,31 @@ Funcion return_de_op1 = op1(agenda_fun_1)
 			Escribir agenda_fun_1[i,j]
 		FinPara
 	FinPara
-	
 	//Le pido al usuario el dia y el turno que desea reservar
 	Escribir "ingrese el dia y turno que desea reservar: "
 	leer diaReserva,turnoReserva
 	//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno"  y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
 	aux <- agenda_fun_1[diaReserva-1,turnoReserva-1]
-	agenda_fun_1[diaReserva-1,turnoReserva-1] = "Turno no disponible"
-	array_reservar_turno[diaReserva-1,turnoReserva-1] = "Turno ya dado"
+	agenda_fun_1[diaReserva-1,turnoReserva-1] =  aux +"(Turno no disponible)"
+	array_reservar_turno[diaReserva-1,turnoReserva-1] = "Turno de las " + aux + " no disponible"
 	Escribir "usted selecciono el turno " turnoReserva " del dia " diaReserva
-	
-	
-	//PRUEBASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-	para i<- 0 hasta dias-1 Hacer
-		Escribir "los turnos del dia " i+1 " son:"
-		para j<- 0 hasta turno-1 Hacer
-			Escribir agenda_fun_1[i,j]
+	//Pregunta al usuario si quiere ver la lista de turnos nuevamente.
+	Repetir
+		Escribir "Desea ver la lista de turnos nuevamente?: S-si N-no"
+		Leer verTurnos
+		si verTurnos <> "S" y verTurnos <> "s" y verTurnos <> "N" y verTurnos <> "n" Entonces
+			Escribir "Error, vuelve a intentarlo."
+		FinSi
+	Hasta Que  verTurnos == "S" o verTurnos == "s" o verTurnos == "N" o verTurnos == "n"
+	//Si el usuario ingresa un "S" o "s" le mostramos la lista de turnos actualizada donde aclaramos los que no estan disponibles.
+	si verTurnos == "s" o verTurnos == "S" Entonces
+		para i<- 0 hasta dias-1 Hacer
+			Escribir "los turnos del dia " i+1 " son:"
+			para j<- 0 hasta turno-1 Hacer
+				Escribir agenda_fun_1[i,j]
+			FinPara
 		FinPara
-	FinPara
-	para i<- 0 hasta dias-1 Hacer
-		Escribir "los turnos disponibles del dia " i+1 " son:"
-		para j<- 0 hasta turno-1 Hacer
-			Escribir array_reservar_turno[i,j] 
-		FinPara
-	FinPara
+	FinSi
 	
 Fin Funcion
 
