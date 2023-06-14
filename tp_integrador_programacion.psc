@@ -59,8 +59,10 @@ Algoritmo sin_titulo
 	Escribir "[2] para buscar un paciente"
 	Escribir "[3] para ver agenda del vacunatorio"
 	Escribir "[4] para mostrar la lista de pacientes ordenada"
-	leer op
 	
+	Repetir
+		
+		leer op
 	Segun op Hacer
 		1:
 			llamador=op1(array_agenda)
@@ -74,9 +76,9 @@ Algoritmo sin_titulo
 			llamador=op5(array_agenda)
 			
 		De Otro Modo:
-			Escribir "ingresó una opcion no valida"
+			Escribir "ingresó una opcion no valida, intente nuevamente"
 	Fin Segun
-	
+Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
 FinAlgoritmo 
 
 Funcion return_de_op1 = op1(agenda_fun_1)
