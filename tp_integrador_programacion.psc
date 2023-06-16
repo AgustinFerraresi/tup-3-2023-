@@ -60,7 +60,6 @@ Algoritmo sin_titulo
 	Escribir "[3] para ver agenda del vacunatorio"
 	Escribir "[4] para mostrar la lista de pacientes ordenada"
 	Escribir "[5] para mostrar listado/s"
-	
 	Repetir
 		
 		leer op
@@ -91,7 +90,7 @@ Funcion return_de_op1 = op1(agenda_fun_1)
 	//A medida que se van dando los turnos se van reemplazando los elementos de los arrays de turnos dados y  turnos disponibles.
 	para i<- 0 hasta dias-1 Hacer
 		para j<-0 hasta turno-1 Hacer
-			array_reservar_turno[i,j] <- "Disponible"
+			array_reservar_turno[i,j] <- "Turno disponible"
 		FinPara
 	FinPara
 	//Muestra el array de los turnos disponibles
@@ -107,8 +106,8 @@ Funcion return_de_op1 = op1(agenda_fun_1)
 	leer diaReserva,turnoReserva
 	//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno"  y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
 	aux <- agenda_fun_1[diaReserva-1,turnoReserva-1]
-	agenda_fun_1[diaReserva-1,turnoReserva-1] =  aux +"(Turno no disponible)"
-	array_reservar_turno[diaReserva-1,turnoReserva-1] = "Turno de las " + aux + " no disponible"
+	agenda_fun_1[diaReserva-1,turnoReserva-1] =  aux 
+	array_reservar_turno[diaReserva-1,turnoReserva-1] = "Turno no disponible"
 	Escribir "usted selecciono el turno " turnoReserva " del dia " diaReserva
 	//Pregunta al usuario si quiere ver la lista de turnos nuevamente.
 	Repetir
@@ -123,13 +122,14 @@ Funcion return_de_op1 = op1(agenda_fun_1)
 		para i<- 0 hasta dias-1 Hacer
 			Escribir "los turnos del dia " i+1 " son:"
 			para j<- 0 hasta turno-1 Hacer
-				Escribir agenda_fun_1[i,j]
+				Escribir  agenda_fun_1[i,j] "-" array_reservar_turno[i,j]
 			FinPara
+			Escribir " "
 		FinPara
 	FinSi
 	
 Fin Funcion
-
+ 
 Funcion return_de_op2 = op2 (agenda_fun_2)
 FinFuncion
 
