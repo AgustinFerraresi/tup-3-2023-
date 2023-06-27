@@ -1,12 +1,16 @@
 Algoritmo sin_titulo
 
-	Definir op,llamador,dia,turno,i,j Como Entero
-	Definir array_agenda,array_reservar_turno Como CARACTER
+	Definir op,llamador,dia,turno,i,j,pacientes,datos_pacientes Como Entero
+	Definir array_agenda,array_reservar_turno,array_pacientes Como CARACTER
 	dia <- 5
 	turno <- 8
+	pacientes <- 40
+	datos_pacientes <- 6
 	
 	Dimension array_agenda[dia,turno]
 	Dimension array_reservar_turno[dia,turno]
+	Dimension  array_pacientes[pacientes,datos_pacientes]
+	
 	
 	//Inicializo el array de los turnos disponibles con un mensaje porque al iniciar el programa no hay ningun turno dado,
 	//A medida que se van dando los turnos se van reemplazando los elementos de los arrays de turnos dados y  turnos disponibles.
@@ -16,6 +20,14 @@ Algoritmo sin_titulo
 		FinPara
 	FinPara
 	
+	//Inicializo el array con los datos de los pacientes en vacio para llenarlos a medida que se van ocupando los turnos
+	para i<- 0 hasta pacientes-1 Hacer
+		para j<- 0 hasta datos_pacientes-1 Hacer
+			array_pacientes[i,j] = "Vacio"
+		FinPara
+	FinPara
+	
+
 	//LUNES
 	array_agenda[0,0] = "8"
 	array_agenda[0,1] = "8:30"
@@ -70,12 +82,11 @@ Algoritmo sin_titulo
 		Escribir "[3] para ver agenda del vacunatorio"
 		Escribir "[4] para mostrar la lista de pacientes ordenada"
 		Escribir "[5] para mostrar listado/s"
-		
 		Repetir
 			leer op
 			Segun op Hacer
 				1:
-					llamador=op1(array_agenda,array_reservar_turno)
+					llamador=op1(array_agenda,array_reservar_turno,array_pacientes)
 				2:
 					llamador=op2(array_agenda)
 				3:
@@ -94,13 +105,16 @@ Algoritmo sin_titulo
 FinAlgoritmo 
 
 
-Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno)
+Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 
 	Definir error,bandera_turno Como Logico
-	Definir i,j,dias,turno,diaReserva,turnoReserva,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_tripe_viral Como Entero
+	Definir i,j,k,palabra,dias,turno,diaReserva,pacientes,datos_pacientes,turnoReserva como Entero
+	Definir stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_tripe_viral Como Entero
 	definir aux,verTurnos,datos_usuario,ops Como Caracter
 	dias <- 5
 	turno <- 8
+	pacientes <- 40
+	datos_pacientes <- 6
 	bandera_turno <- Falso
 	Dimension datos_usuario[4]
 	
@@ -153,31 +167,92 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno)
 			Escribir " "
 		FinPara
 	FinSi
+	
 	Escribir " "
 	Escribir "Para terminar necesitamos algunos datos"
 	Escribir " "
 	
-	/// los datos del usuario y hago la validacion de cada uno
+	/// valido y cargo los datos del usuario
+	para i <-0 hasta pacientes-1 Hacer
+		si array_pacientes[i,0] == "Vacio"
+			para j<- 0 hasta datos_pacientes -1 Hacer
+				Segun j Hacer
+					0:
+						///leo y valido nombre y apellido
+						Repetir
+							error = falso
+							Escribir "Ingrese nombre y apellido: "
+							Leer array_pacientes[i,j]
+							palabra <- Longitud(array_pacientes[i,j])
+							para k <- 0 hasta palabra Hacer
+								aux <- Subcadena(array_pacientes[i,j],k,k)
+								si aux == "0" o aux == "1" o aux == "2" o aux == "3" o aux == "4" o aux == "5" o aux == "6" o aux == "7" o aux == "8" o aux == "9" o aux == "/" o aux == "*" o aux == "-" o aux == "+" o aux == "$" Entonces
+									error = Verdadero
+									k<-palabra+1
+								FinSi
+							FinPara
+							si error = Verdadero
+								Escribir "Nombre invalido, vuelve a intentarlo."
+							FinSi
+						Mientras Que error = Verdadero
+					1:
+						///Leo y valido dni
+						Repetir
+							error = Falso
+							Escribir "Ingrese dni: "
+							Leer array_pacientes[i,j]
+							si Longitud(array_pacientes[i,j]) > 8 o Longitud(array_pacientes[i,j]) < 7 Entonces
+								error = Verdadero
+								Escribir "Error, el dni ingresado es inválido."
+							FinSi
+							para i = 0 Hasta Longitud(array_pacientes[i,j]) Hacer
+								aux = Subcadena(array_pacientes[i,j],i,i)
+								si aux <> "0" y aux <> "1" y aux <> "2" y aux <> "3" y aux <> "4" y aux <> "5" y aux <> "6" y aux <> "7" y aux <> "8" y aux <> "9"  
+									error = Verdadero
+								FinSi
+							FinPara
+						Mientras Que error = Verdadero
+					2:
+						Repetir
+							error = falso 
+							Escribir "Ingrese la edad del paciente"
+							Escribir " "
+							Escribir "Si el paciente es menor a 1 año, ingrese la cantidad de meses con un " "[.] (punto) " "o una [,] (coma) adelante del numero de meses"
+							Escribir "Ejemplo: 5 meses = .5 /,5"
+							Escribir " "
+							Leer array_pacientes[i,j]
+							para i = 0 Hasta Longitud(array_pacientes[i,j]) Hacer
+								aux = Subcadena(array_pacientes[i,j],i,i)
+								Escribir aux
+								si aux <> "0" y aux <> "1" y aux <> "2" y aux <> "3" y aux <> "4" y aux <> "5" y aux <> "6" y aux <> "7" y aux <> "8" y aux <> "9"  
+									error = Verdadero
+								FinSi
+							FinPara
+						Mientras Que error = Verdadero
+							
+					De Otro Modo:
+						Escribir ""
+				Fin Segun
+				
+				///leo y valido nombre y apellido
+				
+
+				
+
+			FinPara
+			i <- pacientes-1
+		finSi
+	FinPara
 	
-	///leo y valido nombre y apellido
-	Hacer
-		Escribir "ingrese nombre y apellido"
-		leer datos_usuario[0]
-		error = Falso
-		
 		para i = 0 hasta Longitud(datos_usuario[0])-1 Hacer
 			aux = Subcadena(datos_usuario[0],i,i)
 			si aux == "0" o aux == "1" o aux == "2" o aux == "3" o aux == "4" o aux == "5" o aux == "6" o aux == "7" o aux == "8" o aux == "9" o aux == "/" o aux == "*" o aux == "-" o aux == "+" o aux == "$" Entonces
+				Escribir "el nombre ingresado no es correcto, intentelo nuevamente"
 				error = Verdadero
 			FinSi
 		FinPara
-		
-		si aux == "0" o aux == "1" o aux == "2" o aux == "3" o aux == "4" o aux == "5" o aux == "6" o aux == "7" o aux == "8" o aux == "9" o aux == "/" o aux == "*" o aux == "-" o aux == "+" o aux == "$" Entonces
-			Escribir "el nombre ingresado no es correcto, intentelo nuevamente"
-		FinSi
-		
-		
-	Mientras Que error == Verdadero
+
+
 	
 	Limpiar Pantalla
 	
@@ -187,7 +262,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno)
 	///leo y valido dni
 	//en datos_usuario[1] se guardara el dni 
 	//la longitud del dni puede ser entre 7 u 8 caracteres
-	Hacer 
+	 
 		error = falso 
 		Escribir "ingrese su dni"
 		leer datos_usuario[1]
@@ -208,7 +283,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno)
 		si error == Verdadero
 			Escribir "ERROR: el dni ingresado no es valido"
 		FinSi
-	Mientras Que error == Verdadero
+
 	
 	Limpiar Pantalla
 	Escribir "El dni del usuario es: " datos_usuario[1]
