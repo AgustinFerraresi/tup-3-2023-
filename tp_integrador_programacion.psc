@@ -206,8 +206,8 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	Escribir " "
 	Escribir "Para terminar necesitamos algunos datos"
 	Escribir " "
-	/// los datos del usuario y hago la validacion de cada uno
 	
+	/// los datos del usuario y hago la validacion de cada uno
 	///leo y valido nombre y apellido
 	Hacer
 		Escribir "ingrese nombre y apellido"
@@ -410,7 +410,7 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	Escribir "Dia turno: " datos_usuario[5]
 	
 	
-	///Pasaje de arrays
+	///Pasaje de arrays (de datos_usuario a array_pacientes)
 	
 	para i<-0 hasta pacientes-1 Hacer
 		si array_pacientes[i,0] == "Vacio" Entonces
@@ -576,15 +576,20 @@ SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococ
 	menu <- 0
     total_turnos <- 0
 	Mientras (menu <> 1 Y menu <> 2)
-		Escribir "Elija la opción de listado deseada"
-		Escribir "[1] Cantidad de turnos otorgados por d?a"
-		Escribir "[2] Cantidad de vacunas a aplicar por vacuna"
-		Leer menu
+		Repetir
+			Escribir "Elija la opción de listado deseada"
+			Escribir "[1] Cantidad de turnos otorgados por día"
+			Escribir "[2] Cantidad de vacunas a aplicar por vacuna"
+			Leer menu
+			si menu <> 2 o menu <> 1 Entonces
+				Escribir "La opcion seleccionada es invalida."
+			FinSi
+		Mientras Que menu <> 2 o menu <> 1
 		Limpiar Pantalla
 	FinMientras
 	
 	Si menu==1 Entonces
-		Escribir "Total de turnos otorgados por d?a: "
+		Escribir "Total de turnos otorgados por día: "
 		Escribir "turnos los dias lunes:",8 - turnos_lunes
 		Escribir "turnos los dias martes:",8 - turnos_martes
 		Escribir "turnos los dias miercoles:",8 - turnos_miercoles
