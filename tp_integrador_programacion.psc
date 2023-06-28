@@ -350,6 +350,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
         4:dia = "jueves"
         5:dia = "viernes"
     FinSegun
+	datos_usuario[5] = dia
 	
 	Escribir "Los datos del paciente son: "
 	Escribir " "
@@ -364,10 +365,19 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 	
 	Escribir "Vacuna a aplicar: " datos_usuario[3]
 	
-	Escribir "Dia turno: " dia
-
-
-    Escribir "Horario turno: " datos_usuario[4] "hs"
+	Escribir "Horario turno: " datos_usuario[4] "hs"
+	
+	Escribir "Dia turno: " datos_usuario[5]
+	
+	
+	///Pasaje de arrays
+	
+	para i<- 0 hasta pacientes-1 Hacer
+		para j<- 0 hasta datos_pacientes-1 Hacer
+			array_pacientes[i,j] = datos_usuario[j]
+		FinPara
+		i<- pacientes-1
+	FinPara
 	
 Fin Funcion
 
