@@ -91,7 +91,7 @@ Algoritmo sin_titulo
 				3:
 					llamador=op3(array_agenda)
 				4:
-					llamador=op4(array_agenda)
+					llamador=op4(array_pacientes)
 				5:
 					llamador=op5(array_agenda)
 					
@@ -372,11 +372,13 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 	
 	///Pasaje de arrays
 	
-	para i<- 0 hasta pacientes-1 Hacer
-		para j<- 0 hasta datos_pacientes-1 Hacer
-			array_pacientes[i,j] = datos_usuario[j]
-		FinPara
-		i<- pacientes-1
+	para i<-0 hasta pacientes-1 Hacer
+		si array_pacientes[i,0] == "Vacio" Entonces
+			para j<- 0 hasta datos_pacientes-1 Hacer
+				array_pacientes[i,j] = datos_usuario[j]
+			FinPara
+			i<- pacientes-1
+		FinSi
 	FinPara
 	
 Fin Funcion
@@ -387,8 +389,103 @@ FinFuncion
 Funcion return_de_op3 = op3 (agenda_fun_3)
 FinFuncion
 
-Funcion return_de_op4 = op4 (agenda_fun_4)
+
+
+Funcion return_de_op4 = op4 (array_pacientes)
+	
+	Definir i,opcionn,pacientes,datos,aux,j,k Como Entero
+	pacientes<- 40
+	datos <- 6
+	
+	
+	Escribir "Como desea mostrar la lista: "
+	Escribir "[1] por edad"
+	Escribir "[2] por vacuna a aplicar"	
+	Repetir
+		Leer opcionn
+		si opcionn <> 1 y opcionn <> 2 Entonces
+			Escribir "Opcion seleccionada invalida."
+		FinSi
+	Mientras Que opcionn <> 1 y opcionn <> 2
+	
+	si opcionn == 2 Entonces
+		opcionn = 3
+	FinSi
+	
+	si opcionn == 1 Entonces
+		opcionn = 2
+	FinSi
+	
+	Segun opcionn Hacer
+		2:
+			para i<- 0 hasta pacientes-2 Hacer
+				para j<- i+1 hasta datos-1 Hacer
+					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+						para k<-0 hasta datos-1 Hacer
+							aux <- array_pacientes[i,k]
+							array_pacientes[i,k] <- array_pacientes[i,j]
+							array_pacientes[i,j] <- aux
+						FinPara
+					FinSi
+				FinPara
+			FinPara
+			
+			para i<-0 hasta pacientes-1 Hacer
+				para j <- 0 hasta datos -1 Hacer
+					Escribir array_pacientes[i,j] " " Sin Saltar
+				FinPara
+				Escribir " "
+			FinPara
+		3:
+			para i<- 0 hasta pacientes-2 Hacer
+				para j<- i+1 hasta datos-1 Hacer
+					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+						para k<-0 hasta datos-1 Hacer
+							aux <- array_pacientes[i,k]
+							array_pacientes[i,k] <- array_pacientes[i,j]
+							array_pacientes[i,j] <- aux
+						FinPara
+					FinSi
+				FinPara
+			FinPara
+			para i<-0 hasta pacientes-1 Hacer
+				para j <- 0 hasta datos -1 Hacer
+					Escribir array_pacientes[i,j] " " Sin Saltar
+				FinPara
+				Escribir " "
+			FinPara
+			
+		De Otro Modo:
+			Escribir ""
+	Fin Segun
+	
+	
+	
+	
+	
+	
+	
+	
+	
 FinFuncion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Funcion return_de_op5 = op5 (agenda_fun_5)
 FinFuncion
