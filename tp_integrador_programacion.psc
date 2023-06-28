@@ -111,7 +111,7 @@ Algoritmo sin_titulo
 					op5(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
 					
 				De Otro Modo:
-					Escribir "ingrese una opcion no valida, intente nuevamente"
+					Escribir "Usted ingresó una opcion no valida, intente nuevamente"
 			Fin Segun
 		Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
 	Mientras Que (op <> 6)
@@ -439,8 +439,6 @@ SubProceso op2 (array_pacientes)
 		Fin Si
 	mientras Que (dniAbuscar<10000000 y dniAbuscar>99999999)
 	
-	
-	
 	Repetir
 		Si (dniAbuscar == ConvertirANumero(array_pacientes[i,1])) Entonces
 			encontrado=1
@@ -458,9 +456,6 @@ SubProceso op2 (array_pacientes)
 	SiNo
 		escribir "DNI no encontrado"
 	Fin Si
-	
-	
-	
 	
 FinSubProceso
 
@@ -516,8 +511,6 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 	si opcionn == 1 Entonces
 		opcionn = 2
 	FinSi
-	
-
 	
 	Segun opcionn Hacer
 		///Muestro la lista ordenada por edad
