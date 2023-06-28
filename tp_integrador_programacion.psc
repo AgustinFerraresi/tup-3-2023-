@@ -106,7 +106,7 @@ Algoritmo sin_titulo
 				3:
 					op3(array_agenda,array_reservar_turno,dia,turno)
 				4:
-					llamador=op4(array_pacientes)
+					llamador=op4(array_pacientes,pacientes,datos_pacientes)
 				5:
 					op5(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
 					
@@ -212,8 +212,8 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 			FinSi
 		FinPara
 		
-		si aux == "0" o aux == "1" o aux == "2" o aux == "3" o aux == "4" o aux == "5" o aux == "6" o aux == "7" o aux == "8" o aux == "9" o aux == "/" o aux == "*" o aux == "-" o aux == "+" o aux == "$" Entonces
-			Escribir "el nombre ingresado no es correcto, intentelo nuevamente"
+		si (aux == "0" o aux == "1" o aux == "2" o aux == "3" o aux == "4" o aux == "5" o aux == "6" o aux == "7" o aux == "8" o aux == "9" o aux == "/" o aux == "*" o aux == "-" o aux == "+" o aux == "$") y error == Verdadero Entonces
+			Escribir "el nombre ingresado no es correcto, intentelo nuevamente."
 		FinSi
 		
 		
@@ -261,7 +261,7 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 		error = falso 
 		Escribir "Ingrese la edad del paciente"
 		Escribir " "
-		Escribir "Si el paciente es menor a 1 a?o, ingrese la cantidad de meses con un " "[.] (punto) " "o una [,] (coma) adelante del numero de meses"
+		Escribir "Si el paciente es menor a 1 año, ingrese la cantidad de meses con un " "[.] (punto) " "o una [,] (coma) adelante del numero de meses"
 		Escribir "Ejemplo: 5 meses = .5 /,5"
 		Escribir " "
 		leer datos_usuario[2]
@@ -386,7 +386,7 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	si Subcadena(datos_usuario[2],0,0) == "." o Subcadena(datos_usuario[2],0,0) == "," entonces
 		Escribir "Edad: " datos_usuario[2] " meses"
 	SiNo
-		Escribir "Edad: " datos_usuario[2] " a?os"
+		Escribir "Edad: " datos_usuario[2] " años"
 	FinSi
 	
 	Escribir "Vacuna a aplicar: " datos_usuario[3]
@@ -477,14 +477,14 @@ SubProceso op3(agenda_fun_3,array_reservar_turno,dia,turno)
 FinSubProceso
 
 
-Funcion return_de_op4 = op4 (array_pacientes)
+Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 	
-	Definir i,opcionn,pacientes,datos,j,k Como Entero
+	Definir i,opcionn,j,k Como Entero
 	pacientes<- 40
 	datos <- 6
 	Definir  aux Como Caracter
 	
-	
+	///Muestro opciones para mostrar la lista ordenada y las valido
 	Escribir "Como desea mostrar la lista: "
 	Escribir "[1] por edad"
 	Escribir "[2] por vacuna a aplicar"	
@@ -503,7 +503,10 @@ Funcion return_de_op4 = op4 (array_pacientes)
 		opcionn = 2
 	FinSi
 	
+
+	
 	Segun opcionn Hacer
+		///Muestro la lista ordenada por edad
 		2:
 			para i<- 0 hasta pacientes-2 Hacer
 				para j<- i+1 hasta pacientes-1 Hacer
@@ -519,25 +522,32 @@ Funcion return_de_op4 = op4 (array_pacientes)
 			
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
-					Escribir array_pacientes[i,j] " " Sin Saltar
+					si array_pacientes[i,j] <> "Vacio" Entonces
+						Escribir array_pacientes[i,j] " " Sin Saltar
+					FinSi
 				FinPara
 				Escribir " "
 			FinPara
+			
+			///Muestro la lista ordenada por vacuna a aplicar
 		3:
 			para i<- 0 hasta pacientes-2 Hacer
-				para j<- i+1 hasta datos-1 Hacer
-					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+				para j<- i+1 hasta pacientes-1 Hacer
+					si array_pacientes[i,opcionn] < array_pacientes[j,opcionn] Entonces
 						para k<-0 hasta datos-1 Hacer
 							aux <- array_pacientes[i,k]
-							array_pacientes[i,k] <- array_pacientes[i,j]
-							array_pacientes[i,j] <- aux
+							array_pacientes[i,k] <- array_pacientes[j,k]
+							array_pacientes[j,k] <- aux
 						FinPara
 					FinSi
 				FinPara
 			FinPara
+			
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
-					Escribir array_pacientes[i,j] " " Sin Saltar
+					si array_pacientes[i,j] <> "Vacio" Entonces
+						Escribir array_pacientes[i,j] " " Sin Saltar
+					FinSi
 				FinPara
 				Escribir " "
 			FinPara
@@ -552,9 +562,10 @@ FinFuncion
 SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)	
 	Definir menu Como Entero
 	Definir i, total_turnos Como Entero
+	menu <- 0
     total_turnos <- 0
 	Mientras (menu <> 1 Y menu <> 2)
-		Escribir "Elija la opci?n de listado deseada"
+		Escribir "Elija la opción de listado deseada"
 		Escribir "[1] Cantidad de turnos otorgados por d?a"
 		Escribir "[2] Cantidad de vacunas a aplicar por vacuna"
 		Leer menu
@@ -583,8 +594,4 @@ SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococ
 		
 		
 	Fin Si
-	
-	
-	
 FinSubProceso
-
