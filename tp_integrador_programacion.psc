@@ -104,7 +104,7 @@ Algoritmo sin_titulo
 				2:
 					op2(array_pacientes)
 				3:
-					
+					op3(array_agenda,array_reservar_turno,dia,turno)
 				4:
 					llamador=op4(array_pacientes)
 				5:
@@ -300,7 +300,6 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	//verifico que no se ingresen caracteres no deseados en el ingreso del tipo de vacuna y que esta sea correcta
 	Hacer
 		Escribir "ingrese la vacuna a colocar"
-		Escribir "ingrese la vacuna a colocar"
 		Escribir "neumococo conjugada"
 		Escribir "poliomielitis"
 		Escribir "quintuple"
@@ -344,7 +343,7 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 						stock_meningococo = stock_meningococo - 1
 					SiNo
 						si datos_usuario[3] == "triple viral" entonces
-							stock_tripe_viral = stock_triple_viral - 1
+							stock_triple_viral = stock_triple_viral - 1
 						FinSi
 					FinSi
 				FinSi
@@ -451,7 +450,31 @@ SubProceso op2 (array_pacientes)
 	
 FinSubProceso
 
-
+SubProceso op3(agenda_fun_3,array_reservar_turno,dia,turno)
+	
+	Definir verTurnos Como Caracter
+	Definir i,j Como Entero
+	
+	Repetir
+		Escribir "Desea ver la lista de turnos?: [S]=si [N]=no"
+		Leer verTurnos
+		si verTurnos <> "S" y verTurnos <> "s" y verTurnos <> "N" y verTurnos <> "n" Entonces
+			Escribir "Error, vuelve a intentarlo."
+		FinSi
+	Hasta Que  verTurnos == "S" o verTurnos == "s" o verTurnos == "N" o verTurnos == "n"
+	
+	//Si el usuario ingresa un "S" o "s" le mostramos la lista de turnos actualizada donde aclaramos los que no estan disponibles.
+	si verTurnos == "s" o verTurnos == "S" Entonces
+		para i<- 0 hasta dia-1 Hacer
+			Escribir "los turnos del dia " i+1 " son:"
+			para j<- 0 hasta turno-1 Hacer
+				Escribir  agenda_fun_3[i,j] "-" array_reservar_turno[i,j]
+			FinPara
+			Escribir " "
+		FinPara
+	FinSi
+	
+FinSubProceso
 
 
 Funcion return_de_op4 = op4 (array_pacientes)
