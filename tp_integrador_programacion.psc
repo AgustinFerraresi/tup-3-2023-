@@ -2,10 +2,25 @@ Algoritmo sin_titulo
 	
 	Definir op,llamador,dia,turno,i,j,pacientes,datos_pacientes Como Entero
 	Definir array_agenda,array_reservar_turno,array_pacientes Como CARACTER
+	Definir stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral Como Entero
+	definir turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes como entero
 	dia <- 5
 	turno <- 8
 	pacientes <- 40
 	datos_pacientes <- 6
+	//cantidad de stock de cada vacuna
+	stock_neumococo_conjugada <- 10
+	stock_poliomielitis <- 10 	
+	stock_quintuple <- 10
+	stock_rotavirus <- 10
+	stock_meningococo <- 10
+	stock_triple_viral <- 10
+	//cantidad de turnos los dias de la semana
+	turnos_lunes <- 8
+	turnos_martes <- 8
+	turnos_miercoles <- 8
+	turnos_jueves <- 8
+	turnos_viernes <- 8
 	
 	Dimension array_agenda[dia,turno]
 	Dimension array_reservar_turno[dia,turno]
@@ -85,29 +100,29 @@ Algoritmo sin_titulo
 			leer op
 			Segun op Hacer
 				1:
-					llamador=op1(array_agenda,array_reservar_turno,array_pacientes)
+					op1(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
 				2:
-					llamador=op2(array_agenda)
+					op2(array_pacientes)
 				3:
-					llamador=op3(array_agenda)
+					op3(array_agenda,array_reservar_turno,dia,turno)
 				4:
 					llamador=op4(array_pacientes)
 				5:
-					llamador=op5(array_agenda)
+					op5(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
 					
 				De Otro Modo:
-					Escribir "ingresó una opcion no valida, intente nuevamente"
+					Escribir "ingres? una opcion no valida, intente nuevamente"
 			Fin Segun
 		Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
-	Mientras Que (op <> 5)
+	Mientras Que (op <> 6)
 	
 FinAlgoritmo 
 
 
-Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
+subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,array_pacientes Por Referencia,stock_neumococo_conjugada Por Referencia,stock_poliomielitis Por Referencia,stock_quintuple Por Referencia,stock_rotavirus Por Referencia,stock_meningococo Por Referencia,stock_triple_viral Por Referencia,turnos_lunes Por Referencia,turnos_martes Por Referencia,turnos_miercoles Por Referencia,turnos_jueves Por Referencia,turnos_viernes Por Referencia)
 	
 	Definir error,bandera_turno Como Logico
-	Definir i,j,dias,turno,diaReserva,turnoReserva,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_tripe_viral,pacientes,datos_pacientes Como Entero
+	Definir i,j,dias,turno,diaReserva,turnoReserva,pacientes,datos_pacientes Como Entero
 	definir aux,verTurnos,datos_usuario,ops,dia Como Caracter
 	dias <- 5
 	turno <- 8
@@ -133,6 +148,18 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 		leer diaReserva,turnoReserva
 		//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno" 
 		//y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
+		Segun diaReserva Hacer
+			1:
+				turnos_lunes = turnos_lunes - 1;
+			2:
+				turnos_martes = turnos_martes - 1;
+			3:
+				turnos_miercoles = turnos_miercoles - 1;
+			4:
+				turnos_jueves = turnos_jueves - 1
+			5:
+				turnos_viernes = turnos_viernes - 1
+		Fin Segun
 		si array_reservar_turno[diaReserva-1,turnoReserva-1] == "Turno no disponible" Entonces
 			Escribir "El turno elegido no esta disponible, por favor seleccione otro."
 		SiNo
@@ -234,7 +261,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 		error = falso 
 		Escribir "Ingrese la edad del paciente"
 		Escribir " "
-		Escribir "Si el paciente es menor a 1 año, ingrese la cantidad de meses con un " "[.] (punto) " "o una [,] (coma) adelante del numero de meses"
+		Escribir "Si el paciente es menor a 1 a?o, ingrese la cantidad de meses con un " "[.] (punto) " "o una [,] (coma) adelante del numero de meses"
 		Escribir "Ejemplo: 5 meses = .5 /,5"
 		Escribir " "
 		leer datos_usuario[2]
@@ -265,21 +292,20 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 	si Subcadena(datos_usuario[2],0,0) == "." o Subcadena(datos_usuario[2],0,0) == "," entonces
 		Escribir "la edad del paciente es " datos_usuario[2] " meses"
 	SiNo
-		Escribir "la edad del paciente es " datos_usuario[2] " años"
+		Escribir "la edad del paciente es " datos_usuario[2] " a?os"
 	FinSi
 	
 	Escribir " " 
-	///leo y valido vacuna
-	stock_neumococo_conjugada = 10
-	stock_poliomielitis = 10 	
-	stock_quintuple = 10
-	stock_rotavirus = 10
-	stock_meningococo = 10
-	stock_tripe_viral = 10
 	
 	//verifico que no se ingresen caracteres no deseados en el ingreso del tipo de vacuna y que esta sea correcta
 	Hacer
 		Escribir "ingrese la vacuna a colocar"
+		Escribir "neumococo conjugada"
+		Escribir "poliomielitis"
+		Escribir "quintuple"
+		Escribir "rotavirus"
+		Escribir "meningococo"
+		Escribir "triple viral"
 		leer datos_usuario[3]
 		error = Falso
 		
@@ -290,7 +316,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 			FinSi
 		FinPara
 		
-		si datos_usuario[3] <> "neumococo conjugada" y datos_usuario[3] <> "poliomielitis " y datos_usuario[3] <> "quintuple" y datos_usuario[3] <> "rotavirus" y datos_usuario[3] <> "meningococo" y datos_usuario[3] <> "tripe viral"
+		si datos_usuario[3] <> "neumococo conjugada" y datos_usuario[3] <> "poliomielitis " y datos_usuario[3] <> "quintuple" y datos_usuario[3] <> "rotavirus" y datos_usuario[3] <> "meningococo" y datos_usuario[3] <> "triple viral"
 			error = Verdadero
 		FinSi
 		
@@ -317,7 +343,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 						stock_meningococo = stock_meningococo - 1
 					SiNo
 						si datos_usuario[3] == "triple viral" entonces
-							stock_tripe_viral = stock_tripe_viral - 1
+							stock_triple_viral = stock_triple_viral - 1
 						FinSi
 					FinSi
 				FinSi
@@ -339,7 +365,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 		Escribir "quintuple: " stock_quintuple 
 		Escribir "rotavirus: " stock_rotavirus
 		Escribir "meningococo: " stock_meningococo
-		Escribir "triple viral: " stock_tripe_viral
+		Escribir "triple viral: " stock_triple_viral
 		Escribir " "
 	FinSi
 	
@@ -360,7 +386,7 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 	si Subcadena(datos_usuario[2],0,0) == "." o Subcadena(datos_usuario[2],0,0) == "," entonces
 		Escribir "Edad: " datos_usuario[2] " meses"
 	SiNo
-		Escribir "Edad: " datos_usuario[2] " años"
+		Escribir "Edad: " datos_usuario[2] " a?os"
 	FinSi
 	
 	Escribir "Vacuna a aplicar: " datos_usuario[3]
@@ -381,46 +407,111 @@ Funcion return_de_op1 = op1(agenda_fun_1,array_reservar_turno,array_pacientes)
 		FinSi
 	FinPara
 	
-Fin Funcion
+Fin subproceso
 
-Funcion return_de_op2 = op2 (agenda_fun_2)
-FinFuncion
+SubProceso op2 (array_pacientes)
+	definir DniCaracter Como Caracter
+	definir dniAbuscar como entero
+	definir i,aux Como Entero
+	definir encontrado como entero
+	i=0
+	encontrado=0
+	
+	Repetir
+		escribir "ingrese el dni"
+		Leer dniAbuscar
+		Si (dniAbuscar<10000000 y dniAbuscar>99999999)Entonces
+			escribir "Dni invalido,intente nuevamente"
+		Fin Si
+	mientras Que (dniAbuscar<10000000 y dniAbuscar>99999999)
+	
+	
+	
+	Repetir
+		Si (dniAbuscar == ConvertirANumero(array_pacientes[i,1])) Entonces
+			encontrado=1
+			aux=i
+		Fin Si
+		i=i+1
+	Mientras Que (encontrado=0 y i<40)
+	Si encontrado=1 Entonces
+		escribir "Nombre y Apellido:", array_pacientes[aux,0]
+		Escribir "Dni: ", array_pacientes[aux,1]
+		escribir "Edad: ",array_pacientes[aux,2]
+		Escribir "Vacuna a aplicar: ",array_pacientes[aux,3]
+		Escribir "Dia: ",array_pacientes[aux,5]
+		escribir "Horario: ", array_pacientes[aux,4]
+	SiNo
+		escribir "DNI no encontrado"
+	Fin Si
+	
+	
+	
+	
+FinSubProceso
 
-Funcion return_de_op3 = op3 (agenda_fun_3)
-FinFuncion
-
+SubProceso op3(agenda_fun_3,array_reservar_turno,dia,turno)
+	
+	Definir verTurnos Como Caracter
+	Definir i,j Como Entero
+	
+	Repetir
+		Escribir "Desea ver la lista de turnos?: [S]=si [N]=no"
+		Leer verTurnos
+		si verTurnos <> "S" y verTurnos <> "s" y verTurnos <> "N" y verTurnos <> "n" Entonces
+			Escribir "Error, vuelve a intentarlo."
+		FinSi
+	Hasta Que  verTurnos == "S" o verTurnos == "s" o verTurnos == "N" o verTurnos == "n"
+	
+	//Si el usuario ingresa un "S" o "s" le mostramos la lista de turnos actualizada donde aclaramos los que no estan disponibles.
+	si verTurnos == "s" o verTurnos == "S" Entonces
+		para i<- 0 hasta dia-1 Hacer
+			Escribir "los turnos del dia " i+1 " son:"
+			para j<- 0 hasta turno-1 Hacer
+				Escribir  agenda_fun_3[i,j] "-" array_reservar_turno[i,j]
+			FinPara
+			Escribir " "
+		FinPara
+	FinSi
+	
+FinSubProceso
 
 
 Funcion return_de_op4 = op4 (array_pacientes)
 	
-	Definir i,columnaOrdenar,pacientes,datos,j,k Como Entero
-	Definir aux Como Caracter
+	Definir i,opcionn,pacientes,datos,j,k Como Entero
 	pacientes<- 40
 	datos <- 6
+	Definir  aux Como Caracter
 	
 	
 	Escribir "Como desea mostrar la lista: "
 	Escribir "[1] por edad"
 	Escribir "[2] por vacuna a aplicar"	
 	Repetir
-		Leer columnaOrdenar
-		si columnaOrdenar <> 1 y columnaOrdenar <> 2 Entonces
+		Leer opcionn
+		si opcionn <> 1 y opcionn <> 2 Entonces
 			Escribir "Opcion seleccionada invalida."
 		FinSi
-	Mientras Que columnaOrdenar <> 1 y columnaOrdenar <> 2
+	Mientras Que opcionn <> 1 y opcionn <> 2
 	
+	si opcionn == 2 Entonces
+		opcionn = 3
+	FinSi
 	
+	si opcionn == 1 Entonces
+		opcionn = 2
+	FinSi
 	
-	Segun columnaOrdenar Hacer
-		1:
-			columnaOrdenar <- 2
-			para i<-0 hasta pacientes-2 Hacer
-				para k<-i+1 hasta pacientes-1 Hacer
-					si array_pacientes[i,columnaOrdenar] > array_pacientes[k,columnaOrdenar] Entonces
-						para j<-0 hasta datos-1 Hacer
-							aux <-array_pacientes[i,j]
-							array_pacientes[i,j] <- array_pacientes[k,j]
-							array_pacientes[k,j] <- aux
+	Segun opcionn Hacer
+		2:
+			para i<- 0 hasta pacientes-2 Hacer
+				para j<- i+1 hasta pacientes-1 Hacer
+					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+						para k<-0 hasta datos-1 Hacer
+							aux <- array_pacientes[i,k]
+							array_pacientes[i,k] <- array_pacientes[j,k]
+							array_pacientes[j,k] <- aux
 						FinPara
 					FinSi
 				FinPara
@@ -432,10 +523,10 @@ Funcion return_de_op4 = op4 (array_pacientes)
 				FinPara
 				Escribir " "
 			FinPara
-		2:
+		3:
 			para i<- 0 hasta pacientes-2 Hacer
 				para j<- i+1 hasta datos-1 Hacer
-					si array_pacientes[i,columnaOrdenar] > array_pacientes[j,columnaOrdenar] Entonces
+					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
 						para k<-0 hasta datos-1 Hacer
 							aux <- array_pacientes[i,k]
 							array_pacientes[i,k] <- array_pacientes[i,j]
@@ -455,33 +546,45 @@ Funcion return_de_op4 = op4 (array_pacientes)
 			Escribir ""
 	Fin Segun
 	
-	
-	
-	
-	
-	
-	
-	
-	
 FinFuncion
 
 
+SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)	
+	Definir menu Como Entero
+	Definir i, total_turnos Como Entero
+    total_turnos <- 0
+	Mientras (menu <> 1 Y menu <> 2)
+		Escribir "Elija la opci?n de listado deseada"
+		Escribir "[1] Cantidad de turnos otorgados por d?a"
+		Escribir "[2] Cantidad de vacunas a aplicar por vacuna"
+		Leer menu
+		Limpiar Pantalla
+	FinMientras
+	
+	
+	Si menu==1 Entonces
+		
+		
+		Escribir "Total de turnos otorgados por d?a: "
+		Escribir "turnos los dias lunes:",8 - turnos_lunes
+		Escribir "turnos los dias martes:",8 - turnos_martes
+		Escribir "turnos los dias miercoles:",8 - turnos_miercoles
+		Escribir "turnos los dias jueves:",8 - turnos_jueves
+		Escribir "turnos los dias viernes:",8 - turnos_viernes
+		
+	SiNo
+		Escribir "cantidad de vacunas a aplicar por vacuna:"
+		Escribir "Neumococo conjugada:",10 - stock_neumococo_conjugada
+		Escribir "Poliomielitis (IPV o Salk):",10 - stock_poliomielitis
+		Escribir "Quintuple (o pentavalente):",10 - stock_quintuple
+		Escribir "Rotavirus:",10 - stock_rotavirus
+		Escribir "Meningococo:",10 - stock_meningococo
+		escribir "Triple Viral:",10 - stock_triple_viral
+		
+		
+	Fin Si
+	
+	
+	
+FinSubProceso
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Funcion return_de_op5 = op5 (agenda_fun_5)
-FinFuncion
