@@ -111,7 +111,7 @@ Algoritmo sin_titulo
 					op5(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
 					
 				De Otro Modo:
-					Escribir "ingres? una opcion no valida, intente nuevamente"
+					Escribir "ingrese una opcion no valida, intente nuevamente"
 			Fin Segun
 		Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
 	Mientras Que (op <> 6)
@@ -144,8 +144,15 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	
 	//Le pido al usuario el dia y el turno que desea reservar
 	Repetir
-		Escribir "ingrese el dia y turno que desea reservar: "
-		leer diaReserva,turnoReserva
+		
+		Repetir
+			Escribir "ingrese el dia y turno que desea reservar: "
+			leer diaReserva,turnoReserva
+			si (diaReserva < 1 o diaReserva > 5) o (turnoReserva < 1 o turnoReserva > 8) Entonces
+				Escribir "Error al seleccionar fecha y turno, vuelve a intentarlo."
+			FinSi
+		Mientras Que (diaReserva < 1 o diaReserva > 5) o (turnoReserva < 1 o turnoReserva > 8)
+
 		//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno" 
 		//y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
 		Segun diaReserva Hacer
@@ -193,10 +200,12 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 			Escribir " "
 		FinPara
 	FinSi
+	
+	
+	
 	Escribir " "
 	Escribir "Para terminar necesitamos algunos datos"
 	Escribir " "
-	
 	/// los datos del usuario y hago la validacion de cada uno
 	
 	///leo y valido nombre y apellido
