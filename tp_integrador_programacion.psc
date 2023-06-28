@@ -393,7 +393,8 @@ FinFuncion
 
 Funcion return_de_op4 = op4 (array_pacientes)
 	
-	Definir i,opcionn,pacientes,datos,aux,j,k Como Entero
+	Definir i,columnaOrdenar,pacientes,datos,j,k Como Entero
+	Definir aux Como Caracter
 	pacientes<- 40
 	datos <- 6
 	
@@ -402,29 +403,24 @@ Funcion return_de_op4 = op4 (array_pacientes)
 	Escribir "[1] por edad"
 	Escribir "[2] por vacuna a aplicar"	
 	Repetir
-		Leer opcionn
-		si opcionn <> 1 y opcionn <> 2 Entonces
+		Leer columnaOrdenar
+		si columnaOrdenar <> 1 y columnaOrdenar <> 2 Entonces
 			Escribir "Opcion seleccionada invalida."
 		FinSi
-	Mientras Que opcionn <> 1 y opcionn <> 2
+	Mientras Que columnaOrdenar <> 1 y columnaOrdenar <> 2
 	
-	si opcionn == 2 Entonces
-		opcionn = 3
-	FinSi
 	
-	si opcionn == 1 Entonces
-		opcionn = 2
-	FinSi
 	
-	Segun opcionn Hacer
-		2:
-			para i<- 0 hasta pacientes-2 Hacer
-				para j<- i+1 hasta datos-1 Hacer
-					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
-						para k<-0 hasta datos-1 Hacer
-							aux <- array_pacientes[i,k]
-							array_pacientes[i,k] <- array_pacientes[i,j]
-							array_pacientes[i,j] <- aux
+	Segun columnaOrdenar Hacer
+		1:
+			columnaOrdenar <- 2
+			para i<-0 hasta pacientes-2 Hacer
+				para k<-i+1 hasta pacientes-1 Hacer
+					si array_pacientes[i,columnaOrdenar] > array_pacientes[k,columnaOrdenar] Entonces
+						para j<-0 hasta datos-1 Hacer
+							aux <-array_pacientes[i,j]
+							array_pacientes[i,j] <- array_pacientes[k,j]
+							array_pacientes[k,j] <- aux
 						FinPara
 					FinSi
 				FinPara
@@ -436,10 +432,10 @@ Funcion return_de_op4 = op4 (array_pacientes)
 				FinPara
 				Escribir " "
 			FinPara
-		3:
+		2:
 			para i<- 0 hasta pacientes-2 Hacer
 				para j<- i+1 hasta datos-1 Hacer
-					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+					si array_pacientes[i,columnaOrdenar] > array_pacientes[j,columnaOrdenar] Entonces
 						para k<-0 hasta datos-1 Hacer
 							aux <- array_pacientes[i,k]
 							array_pacientes[i,k] <- array_pacientes[i,j]
