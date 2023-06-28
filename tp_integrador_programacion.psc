@@ -363,8 +363,13 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	Escribir "la vacuna a aplicar es: " datos_usuario[3]
 	Escribir " " 
 	Escribir "desea ver el stock de las vacunas actualizado?"
-	Escribir "[S] = si | [N] = no"
-	leer ops
+	Repetir
+		Escribir "[S] = si | [N] = no"
+		leer ops
+		si (ops <> "s" o ops <> "S") o (ops <> "n" o ops<> "N") Entonces
+			Escribir "La opcion seleccionada inválida, vuelve a intentarlo."
+		FinSi
+	Mientras Que (ops <> "s" y ops <> "S") y (ops <> "n" y ops<> "N") 
 	si ops == "s" o ops == "S" entonces
 		Escribir " "
 		Escribir " y es el siguiente:"
@@ -532,17 +537,17 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
 					si array_pacientes[i,j] <> "Vacio" Entonces
-						Escribir array_pacientes[i,j] " " Sin Saltar
+						Escribir array_pacientes[i,j] " - " Sin Saltar
 					FinSi
 				FinPara
-				Escribir " "
+				Escribir ""
 			FinPara
 			
 			///Muestro la lista ordenada por vacuna a aplicar
 		3:
 			para i<- 0 hasta pacientes-2 Hacer
 				para j<- i+1 hasta pacientes-1 Hacer
-					si array_pacientes[i,opcionn] < array_pacientes[j,opcionn] Entonces
+					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
 						para k<-0 hasta datos-1 Hacer
 							aux <- array_pacientes[i,k]
 							array_pacientes[i,k] <- array_pacientes[j,k]
@@ -555,19 +560,16 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
 					si array_pacientes[i,j] <> "Vacio" Entonces
-						Escribir array_pacientes[i,j] " " Sin Saltar
+						Escribir array_pacientes[i,j] " - " Sin Saltar
 					FinSi
 				FinPara
 				Escribir " "
 			FinPara
-			
 		De Otro Modo:
 			Escribir ""
 	Fin Segun
 	
 FinFuncion
-
-
 SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)	
 	Definir menu Como Entero
 	Definir i, total_turnos Como Entero
@@ -581,10 +583,7 @@ SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococ
 		Limpiar Pantalla
 	FinMientras
 	
-	
 	Si menu==1 Entonces
-		
-		
 		Escribir "Total de turnos otorgados por d?a: "
 		Escribir "turnos los dias lunes:",8 - turnos_lunes
 		Escribir "turnos los dias martes:",8 - turnos_martes
@@ -600,7 +599,6 @@ SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococ
 		Escribir "Rotavirus:",10 - stock_rotavirus
 		Escribir "Meningococo:",10 - stock_meningococo
 		escribir "Triple Viral:",10 - stock_triple_viral
-		
 		
 	Fin Si
 FinSubProceso
