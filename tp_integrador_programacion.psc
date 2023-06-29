@@ -95,6 +95,7 @@ Algoritmo sin_titulo
 		Escribir "[3] para ver agenda del vacunatorio"
 		Escribir "[4] para mostrar la lista de pacientes ordenada"
 		Escribir "[5] para mostrar listado/s"
+		Escribir "[6] para salir del programa"
 		
 		Repetir
 			leer op
@@ -109,11 +110,12 @@ Algoritmo sin_titulo
 					llamador=op4(array_pacientes,pacientes,datos_pacientes)
 				5:
 					op5(array_agenda,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)
-					
+				6:
+					Escribir "Programa finalizado, vuelva pronto. =)"
 				De Otro Modo:
 					Escribir "Usted ingresó una opcion no valida, intente nuevamente"
 			Fin Segun
-		Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5)
+		Hasta Que  (op=1 o op=2 o op=3 o op=4 o op=5 o op=6)
 	Mientras Que (op <> 6)
 	
 FinAlgoritmo 
