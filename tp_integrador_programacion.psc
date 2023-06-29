@@ -152,7 +152,7 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 				Escribir "Error al seleccionar fecha y turno, vuelve a intentarlo."
 			FinSi
 		Mientras Que (diaReserva < 1 o diaReserva > 5) o (turnoReserva < 1 o turnoReserva > 8)
-
+		
 		//Realizo el cambio en los arrays con el turno ingresado por el usuario, quedando un turno dado en  "array_reservar_turno" 
 		//y un mensaje de turno no disponible en la posicion del turno dado en el array "agenda_fun_1"
 		Segun diaReserva Hacer
@@ -423,41 +423,42 @@ subproceso op1(agenda_fun_1 Por Referencia,array_reservar_turno Por Referencia,a
 	
 Fin subproceso
 
-SubProceso op2 (array_pacientes)
-	definir DniCaracter Como Caracter
-	definir dniAbuscar como entero
-	definir i,aux Como Entero
-	definir encontrado como entero
-	i=0
-	encontrado=0
-	
-	Repetir
-		escribir "ingrese el dni"
-		Leer dniAbuscar
-		Si (dniAbuscar<10000000 y dniAbuscar>99999999)Entonces
-			escribir "Dni invalido,intente nuevamente"
-		Fin Si
-	mientras Que (dniAbuscar<10000000 y dniAbuscar>99999999)
-	
-	Repetir
-		Si (dniAbuscar == ConvertirANumero(array_pacientes[i,1])) Entonces
-			encontrado=1
-			aux=i
-		Fin Si
-		i=i+1
-	Mientras Que (encontrado=0 y i<40)
-	Si encontrado=1 Entonces
-		escribir "Nombre y Apellido:", array_pacientes[aux,0]
-		Escribir "Dni: ", array_pacientes[aux,1]
-		escribir "Edad: ",array_pacientes[aux,2]
-		Escribir "Vacuna a aplicar: ",array_pacientes[aux,3]
-		Escribir "Dia: ",array_pacientes[aux,5]
-		escribir "Horario: ", array_pacientes[aux,4]
-	SiNo
-		escribir "DNI no encontrado"
-	Fin Si
-	
-FinSubProceso
+SubProceso op2(array_pacientes)
+    Definir DniCaracter Como Caracter
+    Definir dniAbuscar como caracter
+    Definir i, aux Como Entero
+    Definir encontrado como entero
+    i = 0
+    encontrado = 0
+    
+    Repetir
+        Escribir "Ingrese el DNI"
+        Leer dniAbuscar
+        Si Longitud(dniAbuscar) < 8 y Longitud(dniAbuscar) > 9 Entonces
+            Escribir "DNI inválido, intente nuevamente"
+        Fin Si
+    mientras Que Longitud(dniAbuscar) < 8 y Longitud(dniAbuscar) > 9
+    
+    Repetir
+        Si dniAbuscar == array_pacientes[i, 1] Entonces
+            encontrado = 1
+            aux = i
+        Fin Si
+        i = i + 1
+    Mientras Que encontrado = 0 y i < 40
+    
+    Si encontrado = 1 Entonces
+        Escribir "Nombre y Apellido:", array_pacientes[aux, 0]
+        Escribir "DNI: ", array_pacientes[aux, 1]
+        Escribir "Edad: ", array_pacientes[aux, 2]
+        Escribir "Vacuna a aplicar: ", array_pacientes[aux, 3]
+        Escribir "Día: ", array_pacientes[aux, 5]
+        Escribir "Horario: ", array_pacientes[aux, 4] "hs"
+    SiNo
+        Escribir "DNI no encontrado"
+    Fin Si
+    
+Fin SubProceso
 
 SubProceso op3(agenda_fun_3,array_reservar_turno,dia,turno)
 	
@@ -513,15 +514,16 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 	FinSi
 	
 	Segun opcionn Hacer
-		///Muestro la lista ordenada por edad
+			///Muestro la lista ordenada por edad
 		2:
 			para i<- 0 hasta pacientes-2 Hacer
 				para j<- i+1 hasta pacientes-1 Hacer
-					si array_pacientes[i,opcionn] > array_pacientes[j,opcionn] Entonces
+					si array_pacientes[i,opcionn] < array_pacientes[j,opcionn] Entonces
 						para k<-0 hasta datos-1 Hacer
 							aux <- array_pacientes[i,k]
 							array_pacientes[i,k] <- array_pacientes[j,k]
 							array_pacientes[j,k] <- aux
+							
 						FinPara
 					FinSi
 				FinPara
@@ -530,12 +532,16 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
 					si array_pacientes[i,j] <> "Vacio" Entonces
-						Escribir array_pacientes[i,j] " - " Sin Saltar
+						escribir " "
+						j= pacientes - 1
+						Para k<-0 Hasta datos - 1 hacer
+							Escribir array_pacientes[i,k] " - " Sin Saltar
+							
+						Fin Para
 					FinSi
 				FinPara
-				Escribir ""
+				Escribir "" Sin Saltar
 			FinPara
-			
 			///Muestro la lista ordenada por vacuna a aplicar
 		3:
 			para i<- 0 hasta pacientes-2 Hacer
@@ -553,15 +559,20 @@ Funcion return_de_op4 = op4 (array_pacientes,pacientes,datos)
 			para i<-0 hasta pacientes-1 Hacer
 				para j <- 0 hasta datos -1 Hacer
 					si array_pacientes[i,j] <> "Vacio" Entonces
-						Escribir array_pacientes[i,j] " - " Sin Saltar
+						Escribir " "
+						j= pacientes - 1
+						Para k<-0 Hasta datos - 1 hacer
+							Escribir array_pacientes[i,k] " - " Sin Saltar
+						FinPara
 					FinSi
 				FinPara
-				Escribir " "
+				Escribir " " Sin Saltar
 			FinPara
+			
 		De Otro Modo:
-			Escribir ""
+			
 	Fin Segun
-	
+	Escribir " "
 FinFuncion
 SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococo_conjugada,stock_poliomielitis,stock_quintuple,stock_rotavirus,stock_meningococo,stock_triple_viral,turnos_lunes,turnos_martes,turnos_miercoles,turnos_jueves,turnos_viernes)	
 	Definir menu Como Entero
@@ -577,7 +588,7 @@ SubProceso op5 (agenda_fun_1,array_reservar_turno,array_pacientes,stock_neumococ
 			si menu <> 2 o menu <> 1 Entonces
 				Escribir "La opcion seleccionada es invalida."
 			FinSi
-		Mientras Que menu <> 2 o menu <> 1
+		Mientras Que menu <> 2 y menu <> 1
 		Limpiar Pantalla
 	FinMientras
 	
